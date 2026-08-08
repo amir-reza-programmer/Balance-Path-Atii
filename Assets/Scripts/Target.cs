@@ -14,17 +14,22 @@ public class Target : MonoBehaviour
 
     private Renderer targetRenderer;
 
-
+    private AudioSource audioSource;
 
     private void Awake()
     {
         targetRenderer = GetComponentInChildren<Renderer>();
+        audioSource = GetComponent<AudioSource>();
 
         if (targetRenderer == null)
         {
             Debug.LogWarning(
                 "Renderer not found for Target: " + gameObject.name
             );
+        }
+        if (audioSource == null)
+        {
+            Debug.LogWarning("AudioSource not found for Target: " + gameObject.name);
         }
     }
 
@@ -103,6 +108,10 @@ public class Target : MonoBehaviour
     public void SetCompleted()
     {
         ChangeColor(Color.green);
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
     }
 
 
