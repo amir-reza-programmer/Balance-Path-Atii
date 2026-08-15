@@ -14,7 +14,7 @@ public class TargetRenamer : MonoBehaviour
             return;
         }
 
-        // 1. Find the PathManager in the scene
+        
         PathManager pathManager = FindObjectOfType<PathManager>();
         if (pathManager == null)
         {
@@ -22,28 +22,26 @@ public class TargetRenamer : MonoBehaviour
             return;
         }
 
-        // Prepare the array to hold exactly 100 targets
+        
         Target[] newTargetArray = new Target[parent.transform.childCount];
 
-        // 2. Loop through and process everything
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             Transform child = parent.transform.GetChild(i);
             
-            // Rename the visual object
+            // rename
             child.name = "Target - " + i.ToString("D2"); 
 
-            // Update the CSV ID and add it to our array
             Target targetScript = child.GetComponent<Target>();
             if (targetScript != null)
             {
                 targetScript.targetID = i;
-                newTargetArray[i] = targetScript; // Add to the PathManager list
+                newTargetArray[i] = targetScript;
                 EditorUtility.SetDirty(targetScript);
             }
         }
         
-        // 3. Inject the finished array directly into the PathManager
+        // inject directly into the PathManager
         pathManager.targets = newTargetArray;
         EditorUtility.SetDirty(pathManager);
         
