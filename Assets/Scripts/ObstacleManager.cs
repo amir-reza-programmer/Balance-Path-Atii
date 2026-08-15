@@ -8,11 +8,10 @@ public class ObstacleManager : MonoBehaviour
 
     void Start()
     {
-        // 1. Shuffle the array randomly every time the game starts
+        // shuffle every time game starts
         System.Random rnd = new System.Random();
         Obstacle[] shuffledObstacles = allObstacles.OrderBy(x => rnd.Next()).ToArray();
 
-        // 2. Turn off 10 of them, leave 20 of them on!
         for (int i = 0; i < shuffledObstacles.Length; i++)
         {
             if (i >= obstaclesToKeep)
