@@ -85,6 +85,8 @@ public class SensorFusion : MonoBehaviour
 
         UpdateHeadData();
 
+        CalculateDistance();
+        
         EstimateFootData();
 
         EstimateIMUData();
@@ -213,6 +215,15 @@ public class SensorFusion : MonoBehaviour
         sensorData.timeStamp =
             Time.time;
 
+    }
+
+    private void CalculateDistance()
+    {
+        // Find the distance between where the head is now, and where it was last frame
+        float distanceThisFrame = Vector3.Distance(headTransform.position, previousHeadPosition);
+        
+        // Add it to our total
+        sensorData.traveledDistance += distanceThisFrame;
     }
 
 }
